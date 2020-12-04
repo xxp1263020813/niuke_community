@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zut.xxp.niuke.dao.DiscussDao">
+    <sql id="selects">
+        id, user_id, title, content, type, status, create_time, comment_count, score
+    </sql>
+
+    <select id="getDiscuss" resultType="Discuss">
+        select <include refid="selects"></include>
+        from discuss_post
+        where id = #{id}
+    </select>
+
+    <select id="getDiscussPages" resultType="Discuss">
+        select <include refid="selects"></include>
+        from discuss_post
+        order by type desc  , status desc, create_time desc
+        limit #{offset},#{limit}
+    </select>
+
+    <select id="getCows" resultType="int">
+        select count(id)
+        from discuss_post
+    </select>
+</mapper>
